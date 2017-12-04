@@ -3,7 +3,7 @@ var eleUploadFile = document.getElementById('uploadImg');
 
 var origBase64;
 
-var coordArr = [{ x: 88, y: 948 }, { x: 160, y: 948 },{ x: 250, y: 948 }, { x: 330, y: 948 },{ x: 430, y: 948 }, { x: 510, y: 948 }];
+var coordArr = [{ x: 88, y: 948 }, { x: 160, y: 948 },{ x: 260, y: 948 }, { x: 335, y: 948 },{ x: 435, y: 948 }, { x: 510, y: 948 }];
 
 // 上传原图片
 eleUploadFile.addEventListener('change', function(event) {
