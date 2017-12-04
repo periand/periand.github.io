@@ -1,36 +1,40 @@
-window.onload = function() {
+// 获取页面元素
+var eleUploadFile = document.getElementById('uploadImg');
 
-    // 获取页面元素
-    var eleUploadFile = document.getElementById('uploadImg');
+var origBase64;
+
+// 上传原图片
+eleUploadFile.addEventListener('change', function(event) {
+    var reader = new FileReader();
+    var file = event.target.files[0] || event.dataTransfer.files[0];
+    reader.onload = function(e) {
+        origBase64 = e.target.result;
+        document.getElementById('origImgDiv').innerHTML = '<img src="' + origBase64 + '">'
+    };
+    reader.readAsDataURL(file);
+});
 
 
-    // 上传原图片
-    eleUploadFile.addEventListener('change', function(event) {
-        var reader = new FileReader();
-        var file = event.target.files[0] || event.dataTransfer.files[0];
-        reader.onload = function(e) {
-            var base64 = e.target.result;
-            document.getElementById('origImg').innerHTML = '<img src="' + base64 + '">'
-        };
-        reader.readAsDataURL(file);
-    });
-
-}
 // 合成图片
 var hourInput = document.getElementById("hourTime");
 var data = [];
+
 function hecheng() {
+    if(eleUploadFile.value==""){
+        alert("请先选择原始图片");
+        return;
+    }
     var hourtext = hourInput.value;
     if (hourtext == "" || hourtext < 1 || hourtext > 24) {
         alert("小时输入超出范围");
         return;
-    }else{
+    } else {
         //只有一位数的时候前面加0
-        if(hourtext.length==1){
-            hourtext = "0"+hourtext;
+        if (hourtext.length == 1) {
+            hourtext = "0" + hourtext;
         }
-        for(var i=0;i<hourtext.length;i++){
-          data.push("numimg/"+hourtext[i]+"_big.png")  
+        for (var i = 0; i < hourtext.length; i++) {
+            data.push("numimg/" + hourtext[i] + "_big.png")
         }
         // alert(hourtext);
         // return;
@@ -43,14 +47,16 @@ function hecheng() {
 var base64 = [];
 
 function draw(fn) {
+    var origImg = document.getElementsByTagName("img")[0];
     var c = document.createElement('canvas'),
         ctx = c.getContext('2d'),
         len = data.length;
-    c.width = 290;
-    c.height = 290;
-    ctx.rect(0, 0, c.width, c.height);
-    ctx.fillStyle = '#fff';
-    ctx.fill();
+    c.width = origImg.naturalWidth;
+    c.height = origImg.naturalHeight;
+    // ctx.rect(0, 0, c.width, c.height);
+    // ctx.fillStyle = '#fff';
+    // ctx.fill();
+    ctx.drawImage(origImg, 0, 0, origImg.naturalWidth, origImg.naturalHeight);
 
     function drawing(n) {
         if (n < len) {
@@ -58,7 +64,7 @@ function draw(fn) {
             //img.crossOrigin = 'Anonymous'; //解决跨域
             img.src = data[n];
             img.onload = function() {
-                ctx.drawImage(img, 0, 0, 290, 290);
+                ctx.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight);
                 drawing(n + 1); //递归
             }
         } else {
