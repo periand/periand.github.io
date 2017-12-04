@@ -64,7 +64,7 @@ function draw(fn) {
             //img.crossOrigin = 'Anonymous'; //解决跨域
             img.src = data[n];
             img.onload = function() {
-                ctx.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight);
+                ctx.drawImage(img, n*70, 0, img.naturalWidth, img.naturalHeight);
                 drawing(n + 1); //递归
             }
         } else {
