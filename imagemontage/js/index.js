@@ -5,6 +5,7 @@ var origBase64;
 
 var hourcoordArr = [{ x: 88, y: 948 }, { x: 160, y: 948 }];
 var mincoordArr = [{ x: 250, y: 948 }, { x: 330, y: 948 }];
+var seccoordArr = [{ x: 430, y: 948 }, { x: 510, y: 948 }];
 
 // 上传原图片
 eleUploadFile.addEventListener('change', function(event) {
@@ -26,6 +27,10 @@ var hourImgSouceArr = [];
 var minInput = document.getElementById("minTime");
 var mintext;
 var minImgSouceArr = [];
+
+var secInput = document.getElementById("secTime");
+var sectext;
+var secImgSouceArr = [];
 
 function hecheng() {
     if (eleUploadFile.value == "") {
@@ -63,6 +68,20 @@ function hecheng() {
             minImgSouceArr.push("numimg/" + mintext[j] + "_big.png");
         }
     }
+    secImgSouceArr = [];
+    sectext = secInput.value;
+    if (sectext < 1 || sectext > 59) {
+        alert("秒输入超出范围");
+        return;
+    } else {
+        //只有一位数的时候前面加0
+        if (sectext.length == 1) {
+            sectext = "0" + sectext;
+        }
+        for (var k = 0; k < sectext.length; k++) {
+            secImgSouceArr.push("numimg/" + sectext[k] + "_big.png");
+        }
+    }
     draw(function() {
         document.getElementById('imgBox').innerHTML = '<p style="padding:10px 0">合成图片成功！可以鼠标另存图片查看我是否是一张图片~~！</p><img src="' + base64[0] + '">';
     })
@@ -74,7 +93,7 @@ function draw(fn) {
     var origImg = document.getElementsByTagName("img")[0];
     var c = document.createElement('canvas'),
         ctx = c.getContext('2d');
-    len = hourImgSouceArr.length;
+    // len = hourImgSouceArr.length;
     c.width = origImg.naturalWidth;
     c.height = origImg.naturalHeight;
     // ctx.rect(0, 0, c.width, c.height);
@@ -83,12 +102,50 @@ function draw(fn) {
     ctx.drawImage(origImg, 0, 0, origImg.naturalWidth, origImg.naturalHeight); //先绘制原始图片为底图
     if(hourtext!=""){
         function drawing(n) {
-            if (n < len) {
+            if (n < hourImgSouceArr.length) {
                 var img = new Image;
                 //img.crossOrigin = 'Anonymous'; //解决跨域
                 img.src = hourImgSouceArr[n];
                 img.onload = function() {
                     ctx.drawImage(img, hourcoordArr[n].x, hourcoordArr[n].y, img.naturalWidth, img.naturalHeight);
+                    drawing(n + 1); //递归
+                }
+            } else {
+                //保存生成作品图片
+                base64.push(c.toDataURL("image/jpeg", 0.8));
+                //alert(JSON.stringify(base64));
+                fn();
+            }
+        }
+        drawing(0);
+    }
+    if(mintext!=""){
+        function drawing(n) {
+            if (n < minImgSouceArr.length) {
+                var img = new Image;
+                //img.crossOrigin = 'Anonymous'; //解决跨域
+                img.src = minImgSouceArr[n];
+                img.onload = function() {
+                    ctx.drawImage(img, mincoordArr[n].x, mincoordArr[n].y, img.naturalWidth, img.naturalHeight);
+                    drawing(n + 1); //递归
+                }
+            } else {
+                //保存生成作品图片
+                base64.push(c.toDataURL("image/jpeg", 0.8));
+                //alert(JSON.stringify(base64));
+                fn();
+            }
+        }
+        drawing(0);
+    }
+    if(sectext!=""){
+        function drawing(n) {
+            if (n < secImgSouceArr.length) {
+                var img = new Image;
+                //img.crossOrigin = 'Anonymous'; //解决跨域
+                img.src = secImgSouceArr[n];
+                img.onload = function() {
+                    ctx.drawImage(img, seccoordArr[n].x, seccoordArr[n].y, img.naturalWidth, img.naturalHeight);
                     drawing(n + 1); //递归
                 }
             } else {
