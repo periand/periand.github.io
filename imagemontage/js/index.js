@@ -20,11 +20,11 @@ eleUploadFile.addEventListener('change', function(event) {
 
 // 合成图片
 var hourInput = document.getElementById("hourTime");
-var hourtext = hourInput.value;
+var hourtext;
 var hourImgSouceArr = [];
 
 var minInput = document.getElementById("minTime");
-var mintext = minInput.value;
+var mintext;
 var minImgSouceArr = [];
 
 function hecheng() {
@@ -32,8 +32,9 @@ function hecheng() {
         alert("请先选择原始图片");
         return;
     }
-    
-    if (hourtext == "" || hourtext < 1 || hourtext > 24) {
+    hourImgSouceArr = [];
+    hourtext = hourInput.value
+    if (hourtext < 1 || hourtext > 24) {
         alert("小时输入超出范围");
         return;
     } else {
@@ -44,11 +45,23 @@ function hecheng() {
         for (var i = 0; i < hourtext.length; i++) {
             hourImgSouceArr.push("numimg/" + hourtext[i] + "_big.png");
         }
-        for(var j=0;j<mintext.length;j++){
-            minImgSouceArr.push("numimg/" + mintext[j] + "_big.png");
-        }
+
         // alert(hourtext);
         // return;
+    }
+    minImgSouceArr = [];
+    mintext = minInput.value;
+    if (mintext < 1 || mintext > 59) {
+        alert("分钟输入超出范围");
+        return;
+    } else {
+        //只有一位数的时候前面加0
+        if (mintext.length == 1) {
+            mintext = "0" + mintext;
+        }
+        for (var j = 0; j < mintext.length; j++) {
+            minImgSouceArr.push("numimg/" + mintext[j] + "_big.png");
+        }
     }
     draw(function() {
         document.getElementById('imgBox').innerHTML = '<p style="padding:10px 0">合成图片成功！可以鼠标另存图片查看我是否是一张图片~~！</p><img src="' + base64[0] + '">';
@@ -61,48 +74,30 @@ function draw(fn) {
     var origImg = document.getElementsByTagName("img")[0];
     var c = document.createElement('canvas'),
         ctx = c.getContext('2d');
-        // len = data.length;
+    len = hourImgSouceArr.length;
     c.width = origImg.naturalWidth;
     c.height = origImg.naturalHeight;
     // ctx.rect(0, 0, c.width, c.height);
     // ctx.fillStyle = '#fff';
     // ctx.fill();
     ctx.drawImage(origImg, 0, 0, origImg.naturalWidth, origImg.naturalHeight); //先绘制原始图片为底图
-
-    // function drawing(n) {
-    //     if (n < len) {
-    //         var img = new Image;
-    //         //img.crossOrigin = 'Anonymous'; //解决跨域
-    //         img.src = data[n];
-    //         img.onload = function() {
-    //             ctx.drawImage(img, hourcoordArr[n].x, hourcoordArr[n].y, img.naturalWidth, img.naturalHeight);
-    //             drawing(n + 1); //递归
-    //         }
-    //     } else {
-    //         //保存生成作品图片
-    //         base64.push(c.toDataURL("image/jpeg", 0.8));
-    //         //alert(JSON.stringify(base64));
-    //         fn();
-    //     }
-    // }
-    // drawing(0);
     if(hourtext!=""){
-        drawNum(ctx,hourImgSouceArr,hourcoordArr);
-    }
-    if(mintext!=""){
-        drawNum(ctx,minImgSouceArr,mincoordArr);
-    }
-    
-}
-
-function drawNum(ctx, data, coordition) {
-    for (var i = 0; i < data.length; i++) {
-        var img = new Image;
-        img.src = data[i];
-        img.onload = function() {
-            ctx.drawImage(img, coordition[n].x, coordition[n].y, img.naturalWidth, img.naturalHeight);
-            drawing(n + 1); //递归
+        function drawing(n) {
+            if (n < len) {
+                var img = new Image;
+                //img.crossOrigin = 'Anonymous'; //解决跨域
+                img.src = hourImgSouceArr[n];
+                img.onload = function() {
+                    ctx.drawImage(img, hourcoordArr[n].x, hourcoordArr[n].y, img.naturalWidth, img.naturalHeight);
+                    drawing(n + 1); //递归
+                }
+            } else {
+                //保存生成作品图片
+                base64.push(c.toDataURL("image/jpeg", 0.8));
+                //alert(JSON.stringify(base64));
+                fn();
+            }
         }
+        drawing(0);
     }
-    base64.push(c.toDataURL("image/jpeg", 0.8));
 }
