@@ -60,7 +60,7 @@ var base64 = [];
 function draw(fn) {
     var origImg = document.getElementsByTagName("img")[0];
     var c = document.createElement('canvas'),
-        ctx = c.getContext('2d'),
+        ctx = c.getContext('2d');
         // len = data.length;
     c.width = origImg.naturalWidth;
     c.height = origImg.naturalHeight;
@@ -89,7 +89,7 @@ function draw(fn) {
     if(hourtext!=""){
         drawNum(ctx,hourImgSouceArr,hourcoordArr);
     }
-    if(mintext!+""){
+    if(mintext!=""){
         drawNum(ctx,minImgSouceArr,mincoordArr);
     }
     
