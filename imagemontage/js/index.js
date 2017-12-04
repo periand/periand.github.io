@@ -3,6 +3,8 @@ var eleUploadFile = document.getElementById('uploadImg');
 
 var origBase64;
 
+var coorditionArr = [{x:88,y:948},{x:160,y:948}];
+
 // 上传原图片
 eleUploadFile.addEventListener('change', function(event) {
     var reader = new FileReader();
@@ -56,7 +58,7 @@ function draw(fn) {
     // ctx.rect(0, 0, c.width, c.height);
     // ctx.fillStyle = '#fff';
     // ctx.fill();
-    ctx.drawImage(origImg, 0, 0, origImg.naturalWidth, origImg.naturalHeight);
+    ctx.drawImage(origImg, 0, 0, origImg.naturalWidth, origImg.naturalHeight);//先绘制原始图片为底图
 
     function drawing(n) {
         if (n < len) {
@@ -64,7 +66,7 @@ function draw(fn) {
             //img.crossOrigin = 'Anonymous'; //解决跨域
             img.src = data[n];
             img.onload = function() {
-                ctx.drawImage(img, n*70, 0, img.naturalWidth, img.naturalHeight);
+                ctx.drawImage(img, coorditionArr[n].x, coorditionArr[n].y, img.naturalWidth, img.naturalHeight);
                 drawing(n + 1); //递归
             }
         } else {
