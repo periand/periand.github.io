@@ -132,7 +132,7 @@ function hecheng() {
     }
 
     draw(function() {
-        document.getElementById('imgBox').innerHTML = '<p style="padding:10px 0">合成图片成功！可以鼠标另存图片查看我是否是一张图片~~！</p><img src="' + base64[0] + '">';
+        document.getElementById('imgBox').innerHTML = '<p style="padding:10px 0">修改图片成功！</p><img src="' + base64[0] + '">';
     })
 }
 
