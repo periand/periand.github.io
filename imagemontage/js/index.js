@@ -144,6 +144,7 @@ function draw(fn) {
     len = imgSouceArr.length;
     c.width = origImg.naturalWidth;
     c.height = origImg.naturalHeight;
+    alert(c.width+","+c.height);
     // ctx.rect(0, 0, c.width, c.height);
     // ctx.fillStyle = '#fff';
     // ctx.fill();
