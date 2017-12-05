@@ -147,7 +147,8 @@ function draw(fn) {
     var origHeight = origImg.naturalHeight;
     c.width = origWidth;
     c.height = origHeight;
-    var scale = 960/origWidth;
+    var scale = origWidth/960;
+    // alert(scale);
     // alert(c.width+","+c.height);
     // ctx.rect(0, 0, c.width, c.height);
     // ctx.fillStyle = '#fff';
