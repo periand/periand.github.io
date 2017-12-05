@@ -147,6 +147,7 @@ function draw(fn) {
     var origHeight = origImg.naturalHeight;
     c.width = origWidth;
     c.height = origHeight;
+    var scale = 960/origWidth;
     // alert(c.width+","+c.height);
     // ctx.rect(0, 0, c.width, c.height);
     // ctx.fillStyle = '#fff';
@@ -162,7 +163,7 @@ function draw(fn) {
                 img = new Image;
                 img.src = imgSouceArr[n];
                 img.onload = function() {
-                    ctx.drawImage(img, coordArr[n].x*origWidth, coordArr[n].y*origHeight);
+                    ctx.drawImage(img, coordArr[n].x*origWidth, coordArr[n].y*origHeight,img.naturalWidth*scale,img.naturalHeight*scale);
                     drawing(n + 1); //递归
                 }
             } else {
