@@ -3,7 +3,7 @@ var eleUploadFile = document.getElementById('uploadImg');
 
 var origBase64;
 
-var coordArr = [{ x: 88, y: 948 }, { x: 160, y: 948 },{ x: 260, y: 948 }, { x: 335, y: 948 },{ x: 435, y: 948 }, { x: 510, y: 948 }];
+var coordArr = [{ x: 346, y: 903 },{ x: 370, y: 903 },{ x: 406, y: 903 },{ x: 429, y: 903 },{ x: 88, y: 948 }, { x: 160, y: 948 },{ x: 260, y: 948 }, { x: 335, y: 948 },{ x: 435, y: 948 }, { x: 510, y: 948 }];
 
 // 上传原图片
 eleUploadFile.addEventListener('change', function(event) {
@@ -18,6 +18,12 @@ eleUploadFile.addEventListener('change', function(event) {
 
 
 // 合成图片
+var monthInput = document.getElementById("month");
+var monthtext;
+
+var dayInput = document.getElementById("month");
+var daytext;
+
 var hourInput = document.getElementById("hourTime");
 var hourtext;
 
@@ -33,6 +39,43 @@ function hecheng() {
         return;
     }
     imgSouceArr = [];
+    //月份
+    monthtext = monthInput.value
+    if (monthtext == "") {
+        monthtext = "--";
+    } else {
+        if (monthtext < 1 || monthtext > 12) {
+            alert("月输入超出范围");
+            return;
+        }
+    }
+    //只有一位数的时候前面加0
+    if (monthtext.length == 1) {
+        monthtext = "0" + monthtext;
+    }
+    for (var m = 0; m < monthtext.length; i++) {
+        imgSouceArr.push("numimg/" + monthtext[m] + "_small.png");
+    }
+
+    //日期
+    daytext = dayInput.value
+    if (daytext == "") {
+        daytext = "--";
+    } else {
+        if (daytext < 1 || daytext > 31) {
+            alert("日输入超出范围");
+            return;
+        }
+    }
+    //只有一位数的时候前面加0
+    if (daytext.length == 1) {
+        daytext = "0" + daytext;
+    }
+    for (var d = 0; d < daytext.length; d++) {
+        imgSouceArr.push("numimg/" + daytext[d] + "_small.png");
+    }
+
+    //小时
     hourtext = hourInput.value
     if (hourtext == "") {
         hourtext = "--";
@@ -50,6 +93,7 @@ function hecheng() {
         imgSouceArr.push("numimg/" + hourtext[i] + "_big.png");
     }
 
+    //分钟
     mintext = minInput.value;
     if (mintext == "") {
         mintext = "--"
@@ -67,6 +111,7 @@ function hecheng() {
         imgSouceArr.push("numimg/" + mintext[j] + "_big.png");
     }
 
+    //秒
     sectext = secInput.value;
     if (sectext == "") {
         sectext = "--";
@@ -106,7 +151,7 @@ function draw(fn) {
 
     function drawing(n) {
         if (n < len) {
-            if(imgSouceArr[n].indexOf("-"==-1)){
+            if(imgSouceArr[n].indexOf("-")==-1){
                 var img = new Image;
                 //img.crossOrigin = 'Anonymous'; //解决跨域
                 img.src = imgSouceArr[n];
