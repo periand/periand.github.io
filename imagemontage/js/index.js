@@ -158,7 +158,7 @@ function draw(fn) {
                 img = new Image;
                 img.src = imgSouceArr[n];
                 img.onload = function() {
-                    ctx.drawImage(img, coordArr[n].x, coordArr[n].y);
+                    ctx.drawImage(img, 0, 0);
                     drawing(n + 1); //递归
                 }
             } else {
