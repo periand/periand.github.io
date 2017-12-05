@@ -3,8 +3,8 @@ var eleUploadFile = document.getElementById('uploadImg');
 
 var origBase64;
 
-var coordArr = [{ x: 346, y: 903 },{ x: 370, y: 903 },{ x: 406, y: 903 },{ x: 429, y: 903 },{ x: 88, y: 948 }, { x: 160, y: 948 },{ x: 260, y: 948 }, { x: 335, y: 948 },{ x: 435, y: 948 }, { x: 510, y: 948 }];
-
+var coordArr = [{ x: 348, y: 905 }, { x: 372, y: 905 }, { x: 408, y: 905 }, { x: 431, y: 905 }, { x: 88, y: 948 }, { x: 160, y: 948 }, { x: 260, y: 948 }, { x: 335, y: 948 }, { x: 435, y: 948 }, { x: 510, y: 948 }];
+// var coordArr = [{ x: 88, y: 948 }, { x: 160, y: 948 },{ x: 260, y: 948 }, { x: 335, y: 948 },{ x: 435, y: 948 }, { x: 510, y: 948 }];
 // 上传原图片
 eleUploadFile.addEventListener('change', function(event) {
     var reader = new FileReader();
@@ -21,7 +21,7 @@ eleUploadFile.addEventListener('change', function(event) {
 var monthInput = document.getElementById("month");
 var monthtext;
 
-var dayInput = document.getElementById("month");
+var dayInput = document.getElementById("day");
 var daytext;
 
 var hourInput = document.getElementById("hourTime");
@@ -53,7 +53,7 @@ function hecheng() {
     if (monthtext.length == 1) {
         monthtext = "0" + monthtext;
     }
-    for (var m = 0; m < monthtext.length; i++) {
+    for (var m = 0; m < monthtext.length; m++) {
         imgSouceArr.push("numimg/" + monthtext[m] + "_small.png");
     }
 
@@ -85,7 +85,7 @@ function hecheng() {
             return;
         }
     }
-     //只有一位数的时候前面加0
+    //只有一位数的时候前面加0
     if (hourtext.length == 1) {
         hourtext = "0" + hourtext;
     }
@@ -147,19 +147,21 @@ function draw(fn) {
     // ctx.rect(0, 0, c.width, c.height);
     // ctx.fillStyle = '#fff';
     // ctx.fill();
-    ctx.drawImage(origImg, 0, 0, origImg.naturalWidth, origImg.naturalHeight); //先绘制原始图片为底图
+    ctx.drawImage(origImg, 0, 0); //先绘制原始图片为底图
+    var img;
+    
 
     function drawing(n) {
         if (n < len) {
-            if(imgSouceArr[n].indexOf("-")==-1){
-                var img = new Image;
+            if (imgSouceArr[n].indexOf("-") == -1) {
                 //img.crossOrigin = 'Anonymous'; //解决跨域
+                img = new Image;
                 img.src = imgSouceArr[n];
                 img.onload = function() {
-                    ctx.drawImage(img, coordArr[n].x, coordArr[n].y, img.naturalWidth, img.naturalHeight);
+                    ctx.drawImage(img, coordArr[n].x, coordArr[n].y);
                     drawing(n + 1); //递归
                 }
-            }else{
+            } else {
                 drawing(n + 1);
             }
         } else {

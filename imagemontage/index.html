@@ -1,34 +1,41 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="Zh-cn">
 
 <head>
     <meta charset="utf-8">
-    <title>图片合成</title>
-    <!--     <link rel="stylesheet" href="http://www.loveqiao.com/css/public.css"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>图片修改</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-    <!-- <div align="center">
-        <img src="img_clothes/img1.png" width="300">
-        <img src="img_clothes/img2.png" width="300">
-        <img src="img_clothes/img3.png" width="300">
-        <img src="img_clothes/img4.png" width="300">
-    </div> -->
-    <input type="file" id="uploadImg">
-    <div id="origImgDiv">
-    </div>
-    <span>月：（输入范围1-12）</span>
-    <input type="text" id="month">
-    <span>日：（输入范围1-31）</span>
-    <input type="text" id="day">
-    <span>小时：（输入范围1-24）</span>
-    <input type="text" id="hourTime">
-    <span>分钟：（输入范围1-59）</span>
-    <input type="text" id="minTime">
-    <span>秒：（输入范围1-59）</span>
-    <input type="text" id="secTime">
-    <div id="imgBox" align="center">
-        <input type="button" value="一键生成" onclick="hecheng()">
+    <div class="wrapper">
+        <div class="item1">
+            <span>选择要修改的图片：</span>
+            <input type="file" id="uploadImg">
+            <div id="origImgDiv">
+            </div>
+        </div>
+        <div class="inputDiv">
+            <span>填写要修改的日期与时间：（不改的不填）</span>
+            <div>
+                <span>月：</span>
+                <input type="text" id="month" placeholder="输入范围1-12">
+                <span>日：</span>
+                <input type="text" id="day" placeholder="输入范围1-31">
+            </div>
+            <div>
+                <span>小时：</span>
+                <input type="text" id="hourTime" placeholder="输入范围1-24">
+                <span>分钟：</span>
+                <input type="text" id="minTime" placeholder="输入范围1-59">
+                <span>秒：</span>
+                <input type="text" id="secTime" placeholder="输入范围1-59">
+            </div>
+        </div>
+        <div class="btnDiv" id="imgBox" align="center">
+            <input type="button" value="一键生成" onclick="hecheng()">
+        </div>
     </div>
     <script type="text/javascript" src="js/index.js"></script>
     <!-- <script src="http://cdn.loveqiao.com/jquery.js"></script> -->
