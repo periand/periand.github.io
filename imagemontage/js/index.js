@@ -3,7 +3,8 @@ var eleUploadFile = document.getElementById('uploadImg');
 
 var origBase64;
 
-var coordArr = [{ x: 348, y: 905 }, { x: 372, y: 905 }, { x: 408, y: 905 }, { x: 431, y: 905 }, { x: 88, y: 948 }, { x: 160, y: 948 }, { x: 260, y: 948 }, { x: 335, y: 948 }, { x: 435, y: 948 }, { x: 510, y: 948 }];
+// var coordArr = [{ x: 348, y: 905 }, { x: 372, y: 905 }, { x: 408, y: 905 }, { x: 431, y: 905 }, { x: 88, y: 948 }, { x: 160, y: 948 }, { x: 260, y: 948 }, { x: 335, y: 948 }, { x: 435, y: 948 }, { x: 510, y: 948 }];
+var coordArr = [{ x: 0.3625, y: 0.707 }, { x: 0.3875, y: 0.707 }, { x: 0.425, y: 0.707 }, { x: 0.449, y: 0.707 }, { x: 0.0917, y: 0.7406 }, { x: 0.1667, y: 0.7406 }, { x: 0.2708, y: 0.7406 }, { x: 0.349, y: 0.7406 }, { x: 0.4531, y: 0.7406 }, { x: 0.5313, y: 0.7406 }];
 // var coordArr = [{ x: 88, y: 948 }, { x: 160, y: 948 },{ x: 260, y: 948 }, { x: 335, y: 948 },{ x: 435, y: 948 }, { x: 510, y: 948 }];
 // 上传原图片
 eleUploadFile.addEventListener('change', function(event) {
@@ -142,9 +143,11 @@ function draw(fn) {
     var c = document.createElement('canvas'),
         ctx = c.getContext('2d');
     len = imgSouceArr.length;
-    c.width = origImg.naturalWidth;
-    c.height = origImg.naturalHeight;
-    alert(c.width+","+c.height);
+    var origWidth  = origImg.naturalWidth;
+    var origHeight = origImg.naturalHeight;
+    c.width = origWidth;
+    c.height = origHeight;
+    // alert(c.width+","+c.height);
     // ctx.rect(0, 0, c.width, c.height);
     // ctx.fillStyle = '#fff';
     // ctx.fill();
@@ -159,7 +162,7 @@ function draw(fn) {
                 img = new Image;
                 img.src = imgSouceArr[n];
                 img.onload = function() {
-                    ctx.drawImage(img, 0, 0);
+                    ctx.drawImage(img, coordArr[n].x*origWidth, coordArr[n].y*origHeight);
                     drawing(n + 1); //递归
                 }
             } else {
