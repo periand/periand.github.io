@@ -9,32 +9,42 @@
 </head>
 
 <body>
-    <div class="wrapper">
-        <div class="item1">
-            <span>选择要修改的图片：</span>
-            <input type="file" id="uploadImg">
-            <div id="origImgDiv">
-            </div>
-        </div>
+    <div class="sideDiv">
         <div class="inputDiv">
-            <span>填写要修改的日期与时间：（不改的不填）</span>
+            <div class="uploadDiv">
+                <p>选择要修改的图片：</p>
+                <input type="file" id="uploadImg">
+            </div>
+            <p>填写要修改的日期与时间：（不改的不填）</p>
             <div>
-                <span>月：</span>
+                <span>月：&nbsp&nbsp&nbsp</span>
                 <input type="text" id="month" placeholder="输入范围1-12">
-                <span>日：</span>
+            </div>
+            <div>
+                <span>日：&nbsp&nbsp&nbsp</span>
                 <input type="text" id="day" placeholder="输入范围1-31">
             </div>
             <div>
                 <span>小时：</span>
                 <input type="text" id="hourTime" placeholder="输入范围1-24">
+            </div>
+            <div>
                 <span>分钟：</span>
                 <input type="text" id="minTime" placeholder="输入范围1-59">
-                <span>秒：</span>
+            </div>
+            <div>
+                <span>秒：&nbsp&nbsp&nbsp</span>
                 <input type="text" id="secTime" placeholder="输入范围1-59">
             </div>
+            <div>
+                <input type="button" value="一键生成" onclick="hecheng()">
+            </div>
+        </div>
+    </div>
+    <div class="imageDiv">
+        <div id="origImgDiv">
         </div>
         <div class="btnDiv" id="imgBox" align="center">
-            <input type="button" value="一键生成" onclick="hecheng()">
         </div>
     </div>
     <script type="text/javascript" src="js/index.js"></script>
